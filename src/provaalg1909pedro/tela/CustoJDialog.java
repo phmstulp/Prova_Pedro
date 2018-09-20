@@ -253,7 +253,7 @@ public class CustoJDialog extends javax.swing.JDialog {
             custo.setValor(Double.parseDouble(tfValor.getText().trim()));
             destino = new Destino();
             destino = (Destino) cbDestino.getSelectedItem();
-            double valor = destino.getVlTotal() + Integer.parseInt(tfValor.getText().trim());
+            double valor = destino.getVlTotal() + Double.parseDouble(tfValor.getText().trim());
             destino.setVlTotal(valor);
             destinoDAO.update(destino);
             custoDAO.save(custo);
