@@ -12,8 +12,8 @@ public class ConnectionFactory {
     public Connection getConnection(){
         try {
             return DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:5432/viagemdb",
-                    "postgres","root");
+                    "jdbc:postgresql://localhost:5433/viagemdb",
+                    "postgres","postgres");
         } catch (SQLException ex) {
             System.out.println("Erro ao criar uma "
                     + "conexão com o banco de dados "+

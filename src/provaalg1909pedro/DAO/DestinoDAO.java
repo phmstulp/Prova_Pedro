@@ -1,6 +1,7 @@
 package provaalg1909pedro.DAO;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,8 +28,8 @@ public class DestinoDAO implements GenericDAO<Destino>{
             PreparedStatement pstm = connection.prepareStatement(sql.toString());
             pstm.setInt(1, entity.getCodigo());
             pstm.setString(2, entity.getDescricao());
-            pstm.setDate(3, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
-            pstm.setDate(4, new java.sql.Date(Calendar.getInstance().getTimeInMillis()));
+            pstm.setDate(3, (Date) entity.getDtInicio());
+            pstm.setDate(4, (Date) entity.getDtTermino());
             pstm.setDouble(5, entity.getVlTotal());
             pstm.execute();
             pstm.close();

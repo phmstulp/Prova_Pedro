@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package provaalg1909pedro.tela;
 
 import java.sql.SQLException;
@@ -14,6 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import provaalg1909pedro.DAO.CustoDAO;
 import provaalg1909pedro.DAO.DestinoDAO;
+import provaalg1909pedro.MenuJDialog;
 import provaalg1909pedro.model.Custo;
 import provaalg1909pedro.model.Destino;
 
@@ -62,16 +58,17 @@ public class CustoJDialog extends javax.swing.JDialog {
         tfCodigo = new javax.swing.JTextField();
         cbDestino = new javax.swing.JComboBox<>();
         tfDescricao = new javax.swing.JTextField();
-        tfTipo = new javax.swing.JTextField();
-        tfValor = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btNovo = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
         btRemover = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
+        tfTipo = new javax.swing.JFormattedTextField();
+        tfValor = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         tbCusto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,10 +108,6 @@ public class CustoJDialog extends javax.swing.JDialog {
 
         tfDescricao.setEnabled(false);
 
-        tfTipo.setEnabled(false);
-
-        tfValor.setEnabled(false);
-
         jLabel6.setText("1 - Lazer");
 
         jLabel7.setText("2 - Refeição");
@@ -143,6 +136,19 @@ public class CustoJDialog extends javax.swing.JDialog {
             }
         });
 
+        btCancelar.setText("Cancelar");
+        btCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarActionPerformed(evt);
+            }
+        });
+
+        try {
+            tfTipo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,34 +159,37 @@ public class CustoJDialog extends javax.swing.JDialog {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel7)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel8))
+                            .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(btNovo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(tfValor, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,11 +209,11 @@ public class CustoJDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(tfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel8)
+                    .addComponent(tfTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(tfValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -212,10 +221,11 @@ public class CustoJDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btNovo)
                     .addComponent(btSalvar)
-                    .addComponent(btRemover))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                    .addComponent(btRemover)
+                    .addComponent(btCancelar))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -233,16 +243,16 @@ public class CustoJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        Custo custo = new Custo();
-        Destino destino = null;
-        custo.setCodigo(Integer.parseInt(tfCodigo.getText().trim()));
-        custo.setDestino((Destino) cbDestino.getSelectedItem());
-        custo.setDescricao(tfDescricao.getText().trim());
-        custo.setTipo(Integer.parseInt(tfTipo.getText().trim()));
-        custo.setValor(Double.parseDouble(tfValor.getText().trim()));
         try {
+            Custo custo = new Custo();
+            Destino destino = null;
+            custo.setCodigo(Integer.parseInt(tfCodigo.getText().trim()));
+            custo.setDestino((Destino) cbDestino.getSelectedItem());
+            custo.setDescricao(tfDescricao.getText().trim());
+            custo.setTipo(Integer.parseInt(tfTipo.getText().trim()));
+            custo.setValor(Double.parseDouble(tfValor.getText().trim()));
             destino = new Destino();
-            destino = destinoDAO.getById(Integer.parseInt(tfCodigo.getText().trim()));
+            destino = (Destino) cbDestino.getSelectedItem();
             double valor = destino.getVlTotal() + Integer.parseInt(tfValor.getText().trim());
             destino.setVlTotal(valor);
             destinoDAO.update(destino);
@@ -251,6 +261,8 @@ public class CustoJDialog extends javax.swing.JDialog {
             limparCampos();
             desabilitaCampos(false);
             carregaTable(custoDAO.getAll());
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Campos estão preenchidos incorretamente");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -259,6 +271,12 @@ public class CustoJDialog extends javax.swing.JDialog {
     private void btRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverActionPerformed
         remover();
     }//GEN-LAST:event_btRemoverActionPerformed
+
+    private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
+        this.dispose();
+        MenuJDialog dialog = new MenuJDialog(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_btCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -303,6 +321,7 @@ public class CustoJDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btCancelar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btRemover;
     private javax.swing.JButton btSalvar;
@@ -319,15 +338,15 @@ public class CustoJDialog extends javax.swing.JDialog {
     private javax.swing.JTable tbCusto;
     private javax.swing.JTextField tfCodigo;
     private javax.swing.JTextField tfDescricao;
-    private javax.swing.JTextField tfTipo;
+    private javax.swing.JFormattedTextField tfTipo;
     private javax.swing.JTextField tfValor;
     // End of variables declaration//GEN-END:variables
 
     private void carregaComboDestino() {
         try {
-            DefaultComboBoxModel modeloComboTanque;
-            modeloComboTanque = new DefaultComboBoxModel(destinoDAO.getAll().toArray());
-            cbDestino.setModel(modeloComboTanque);
+            DefaultComboBoxModel modeloComboCusto;
+            modeloComboCusto = new DefaultComboBoxModel(destinoDAO.getAll().toArray());
+            cbDestino.setModel(modeloComboCusto);
         } catch (SQLException ex) {
             Logger.getLogger(CustoJDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -368,10 +387,10 @@ public class CustoJDialog extends javax.swing.JDialog {
             return;
         }
         try {
-            if (destinoDAO.getAll().size() == 0) {
-                int codigoRemover = (int) tbCusto.getValueAt(linhaSeleciona, 0);
+            int codigoRemover = (int) tbCusto.getValueAt(linhaSeleciona, 0);
+            if (custoDAO.getById(codigoRemover).getDestino() == null) {
                 try {
-                    destinoDAO.delete(codigoRemover);
+                    custoDAO.delete(codigoRemover);
                     carregaTable(custoDAO.getAll());
                 } catch (SQLException ex) {
                     ex.printStackTrace();
