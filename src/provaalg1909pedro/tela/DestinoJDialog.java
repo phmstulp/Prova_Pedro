@@ -1,6 +1,7 @@
 package provaalg1909pedro.tela;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,6 +28,7 @@ public class DestinoJDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         destinoDAO = new DestinoDAO();
+        habilitaFiltroCodigo();
         try {
             carregaTable(destinoDAO.getAll());
         } catch (SQLException ex) {
@@ -44,6 +46,7 @@ public class DestinoJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDestino = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -58,6 +61,11 @@ public class DestinoJDialog extends javax.swing.JDialog {
         tfDtInicio = new javax.swing.JFormattedTextField();
         tfDtTermino = new javax.swing.JFormattedTextField();
         btCancelar = new javax.swing.JButton();
+        rbCodigo = new javax.swing.JRadioButton();
+        rbDescricao = new javax.swing.JRadioButton();
+        tfCodigoFiltro = new javax.swing.JTextField();
+        tfDescricaoFiltro = new javax.swing.JTextField();
+        btFiltrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
@@ -137,6 +145,29 @@ public class DestinoJDialog extends javax.swing.JDialog {
             }
         });
 
+        buttonGroup1.add(rbCodigo);
+        rbCodigo.setText("Código");
+        rbCodigo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbCodigoItemStateChanged(evt);
+            }
+        });
+
+        buttonGroup1.add(rbDescricao);
+        rbDescricao.setText("Descrição");
+        rbDescricao.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbDescricaoItemStateChanged(evt);
+            }
+        });
+
+        btFiltrar.setText("Filtrar");
+        btFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btFiltrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,8 +178,9 @@ public class DestinoJDialog extends javax.swing.JDialog {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rbDescricao)
                             .addComponent(btNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -167,11 +199,17 @@ public class DestinoJDialog extends javax.swing.JDialog {
                                                 .addComponent(tfDtTermino))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(36, 36, 36)
-                                                .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(tfCodigoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(tfDescricaoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGap(18, 18, 18)
-                                        .addComponent(btRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btRemover, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                                            .addComponent(btFiltrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
-                                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(btCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(rbCodigo))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -200,7 +238,20 @@ public class DestinoJDialog extends javax.swing.JDialog {
                     .addComponent(btSalvar)
                     .addComponent(btRemover)
                     .addComponent(btCancelar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rbCodigo)
+                            .addComponent(tfCodigoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rbDescricao)
+                            .addComponent(tfDescricaoFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(btFiltrar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -250,6 +301,44 @@ public class DestinoJDialog extends javax.swing.JDialog {
         MenuJDialog dialog = new MenuJDialog(new javax.swing.JFrame(), true);
         dialog.setVisible(true);
     }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void rbCodigoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbCodigoItemStateChanged
+        habilitaFiltroCodigo();
+    }//GEN-LAST:event_rbCodigoItemStateChanged
+
+    private void rbDescricaoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbDescricaoItemStateChanged
+        tfCodigoFiltro.setText("");
+        tfCodigoFiltro.setEnabled(false);
+        tfDescricaoFiltro.setEnabled(true);
+    }//GEN-LAST:event_rbDescricaoItemStateChanged
+
+    private void btFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFiltrarActionPerformed
+        try {
+            if (destinoDAO.getAll() != null) {
+                if (tfCodigoFiltro.getText().trim().length() == 0
+                        && tfDescricaoFiltro.getText().trim().length() == 0) {
+                    carregaTable(destinoDAO.getAll());
+                    return;
+                }
+                if (rbCodigo.isSelected() && tfCodigoFiltro.getText().trim().length() > 0) {//Codigo está selecionado
+                    Destino destino = destinoDAO.getById(Integer.parseInt(tfCodigoFiltro.getText()));
+                    List<Destino> destinoList = new ArrayList<>();
+                    destinoList.add(destino);
+                    carregaTable(destinoList);
+                } else if (rbDescricao.isSelected() && tfDescricaoFiltro.getText().trim().length() > 0) {
+                    carregaTable(destinoDAO.getByName(tfDescricaoFiltro.getText()));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Favor Informe um filtro para Pesquisa...");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Lista Vazia, Impossível Filtrar");
+            }
+        } catch (NumberFormatException nfe) {
+            JOptionPane.showMessageDialog(null, "Impossível filtrar código com letras");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btFiltrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,17 +396,23 @@ public class DestinoJDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btFiltrar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btRemover;
     private javax.swing.JButton btSalvar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbCodigo;
+    private javax.swing.JRadioButton rbDescricao;
     private javax.swing.JTable tbDestino;
     private javax.swing.JTextField tfCodigo;
+    private javax.swing.JTextField tfCodigoFiltro;
     private javax.swing.JTextField tfDescricao;
+    private javax.swing.JTextField tfDescricaoFiltro;
     private javax.swing.JFormattedTextField tfDtInicio;
     private javax.swing.JFormattedTextField tfDtTermino;
     // End of variables declaration//GEN-END:variables
@@ -358,6 +453,12 @@ public class DestinoJDialog extends javax.swing.JDialog {
         } catch (SQLException ex) {
             Logger.getLogger(CustoJDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void habilitaFiltroCodigo() {
+        tfDescricaoFiltro.setText("");
+        tfDescricaoFiltro.setEnabled(false);
+        tfCodigoFiltro.setEnabled(true);
     }
 
 }
