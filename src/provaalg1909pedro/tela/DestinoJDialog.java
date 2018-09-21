@@ -1,6 +1,7 @@
 package provaalg1909pedro.tela;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -272,20 +273,25 @@ public class DestinoJDialog extends javax.swing.JDialog {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         try {
-            java.sql.Date dataSqlInicio = new java.sql.Date((DateUtil.stringToDate(tfDtInicio.getText().trim())).getTime());
-            java.sql.Date dataSqlTermino = new java.sql.Date((DateUtil.stringToDate(tfDtTermino.getText().trim())).getTime());
-            Destino destino = new Destino();
-            destino.setCodigo(Integer.parseInt(tfCodigo.getText().trim()));
-            destino.setDescricao(tfDescricao.getText().trim());
-            destino.setDtInicio(dataSqlInicio);
-            destino.setDtTermino(dataSqlTermino);
-            destino.setVlTotal(0);
-            destinoDAO.save(destino);
-            JOptionPane.showMessageDialog(null, "Registro Salvo Com Sucesso!!!");
-            limparCampos();
-            desabilitaCampos(false);
-            carregaTable(destinoDAO.getAll());
-        } catch (NumberFormatException nfe) {
+            if (tfDtInicio.getText().replace("/", " ").trim().length() > 0 &&
+                    tfDtTermino.getText().replace("/", " ").trim().length() > 0) {
+                java.sql.Date dataSqlInicio = new java.sql.Date((DateUtil.stringToDate(tfDtInicio.getText().trim())).getTime());
+                java.sql.Date dataSqlTermino = new java.sql.Date((DateUtil.stringToDate(tfDtTermino.getText().trim())).getTime());
+                Destino destino = new Destino();
+                destino.setCodigo(Integer.parseInt(tfCodigo.getText().trim()));
+                destino.setDescricao(tfDescricao.getText().trim());
+                destino.setDtInicio(dataSqlInicio);
+                destino.setDtTermino(dataSqlTermino);
+                destino.setVlTotal(0);
+                destinoDAO.save(destino);
+                JOptionPane.showMessageDialog(null, "Registro Salvo Com Sucesso!!!");
+                limparCampos();
+                desabilitaCampos(false);
+                carregaTable(destinoDAO.getAll());
+            } else {
+                JOptionPane.showMessageDialog(null, "Campo de Data não pode estar vazio");
+            }
+        } catch (NumberFormatException pex) {
             JOptionPane.showMessageDialog(null, "Campos estão preenchidos incorretamente");
         } catch (Exception ex) {
             ex.printStackTrace();
