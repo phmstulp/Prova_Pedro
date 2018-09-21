@@ -126,7 +126,7 @@ public class CustoDAO implements GenericDAO<Custo>{
                     + "d.dt_inicio, d.dt_termino, d.vl_total "
                     + "from custo as c "
                     + "inner join destino as d on (d.cd_destino = c.cd_destino) "
-                    + "where upper(c.ds_custo) like upper('%\" "+ descricao + "\"%') "
+                    + "where upper(c.ds_custo) like upper('%" + descricao + "%') "
                     + "order by c.cd_custo";
             PreparedStatement pstm = connection.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
